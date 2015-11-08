@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameOfLifeGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="600">
     <Grid>
-        <local:GameOfLifeCanvas></local:GameOfLifeCanvas>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Viewbox>
+            <Border BorderThickness="2" BorderBrush="Black">
+                <TextBox x:Name="GameField"
+                         Grid.Column="0"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         />    
+            </Border>
+        </Viewbox>
+        <StackPanel Grid.Column="1">
+            <DockPanel Margin="10,20,10,0">
+                <TextBlock Text="Gamesize: "/>
+                <local:NumberBox x:Name="GameSizeInput" Width="auto"/>
+            </DockPanel>
+            <Button Content="Start" Click="Init_NewGame"/>
+            
+            <Separator Margin="0, 10, 0, 10"/>
+
+            <Button Content="Step 1 Tick" Click="Step_Tick"/>
+
+            <Separator Margin="0, 10, 0, 10"/>
+
+            <DockPanel Margin="10,0,10,0">
+                <TextBlock Text="Total Ticks:"/>
+                <TextBlock x:Name="Ticker"
+                           Text="{Binding Ticks}" 
+                           Width="auto"/>
+            </DockPanel>
+        </StackPanel>
     </Grid>
 </Window>

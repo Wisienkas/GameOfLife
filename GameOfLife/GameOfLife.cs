@@ -11,6 +11,7 @@ namespace GameOfLife
         private readonly int gameSize;
         public bool[,] Map { get; set; }
 
+        
 
         public Game(int gameSize)
         {
@@ -59,12 +60,12 @@ namespace GameOfLife
         public void Tick()
         {
             bool[,] nextGen = new bool[gameSize, gameSize];
-            for(int x = 0; x < gameSize; x++)
+            Parallel.For(0, gameSize, x =>
             {
-                for(int y = 0; y < gameSize; y++)
+                for (int y = 0; y < gameSize; y++)
                 {
                     int count = CountNeighbours(x, y);
-                    if(GetCell(x, y))
+                    if (GetCell(x, y))
                     {
                         nextGen[x, y] = count == 2 || count == 3;
                     }
@@ -73,7 +74,7 @@ namespace GameOfLife
                         nextGen[x, y] = count == 3;
                     }
                 }
-            }
+            });
             this.Map = nextGen;
         }
 
